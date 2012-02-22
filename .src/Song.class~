@@ -3,19 +3,48 @@
 Private myplayer As Mplayer
 Public file As String
 Public progress As Integer
+<<<<<<< HEAD
 
 Public Sub _new(Optional _file As String)
   myplayer = New Mplayer As "player"
   file = _file
+=======
+Public length As String
+Public time As Float
+
+Public Sub _new(Optional _file As String)
+  myplayer = New Mplayer As "player"
+  
+  If _file Then file = _file
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
   
 End
 
 
+<<<<<<< HEAD
 Public Sub player_updatedPosition(data As String)
+=======
+Public Sub player_updatedProgress(data As String)
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
   
   progress = Val(data)
 End
 
+<<<<<<< HEAD
+=======
+Public Sub player_foundFileLength(data As String)
+  length = Format$(CFloat(data) / 60, "#.##")
+End
+
+Public Sub player_foundTime(data As String)
+  
+  Me.time = CFloat(data)
+  
+End
+
+
+
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 Public Sub changeFile(_file As String)
   
   file = _file
@@ -25,7 +54,11 @@ End
 Public Sub play()
   Me.Stop
   myplayer.play(file)
+<<<<<<< HEAD
   
+=======
+  getData
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 End
 
 Public Sub Stop()
@@ -38,10 +71,31 @@ Public Sub Kill()
   myplayer.kill
 End
 
+<<<<<<< HEAD
 Public Sub getPosition()
+=======
+Public Sub getData()
+  myplayer.buffer
+  myplayer.length
+  myplayer.buffer
+  
+End
+
+
+Public Sub getPercentage()
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
   
   myplayer.percentage
   
 End
 
+<<<<<<< HEAD
+=======
+Public Sub getTime()
+  
+  myplayer.time
+  
+End
+
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 

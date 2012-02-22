@@ -13,14 +13,27 @@
 '  * To Public License, Version 2, As Published by Sam Hocevar.See 
 '  * http://sam.zoy.org/wtfpl/COPYING For more details. 
 
+<<<<<<< HEAD
 Event mpOutput(_output As String)
+=======
+Event updatedProgress(_output As String)
+Event foundFileLength(_output As String)
+Event foundTime(_output As String)
+
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 ' If you remove static, you will get a lot of instances of mplayer  
 Static Private mplayer As Process 
 
 ' TODO : Use the rigth data type for each variable 
 Public file_name As String
+<<<<<<< HEAD
  Public file_length As String
  Private file_percentage As String
+=======
+Private file_length As String
+Private file_percentage As String
+Private file_time_position As String
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 Private counter As Integer
 Private sData As String 
  
@@ -39,11 +52,19 @@ Public Sub mpProcess_read()
  
     sData = Trim$(sData)
     
+<<<<<<< HEAD
     Raise mpOutput(sData)
    ' Print counter
    ' Print sData
     
    ' Inc counter
+=======
+   
+   ' Print counter
+   ' Print sData
+    
+  ' Inc counter
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 
     ' We delegate the output parsing to a listener 
 
@@ -79,6 +100,7 @@ Public Sub mpProcess_read()
    ' Endif
    ' 
    ' 
+<<<<<<< HEAD
    ' If Comp(Left$(sData, Len("ID_LENGTH")), "ID_LENGTH") = 0 Then
    ' 
    '  file_length = Mid$(sData, 12)
@@ -89,6 +111,26 @@ Public Sub mpProcess_read()
    '   file_percentage = Mid$(sData, 22)
    '  
    ' Endif
+=======
+   
+   'Print Left$(sData, Len("ID_LENGTH"))
+   'Print Left$(sData, Len("ANS_PERCENT_POSITION"))
+   ' 
+   ' 
+   If Left$(sData, Len("ANS_LENGTH")) = "ANS_LENGTH" Then
+     file_length = Mid$(sData, Len("ANS_LENGTH") + 2)
+     Raise foundFileLength(file_length) 
+   Endif
+   
+   If Left$(sData, Len("ANS_PERCENT_POSITION")) = "ANS_PERCENT_POSITION" Then
+     file_percentage = Mid$(sData, Len("ANS_PERCENT_POSITION") + 2)
+     Raise updatedProgress(file_percentage)
+   Endif
+   
+   If Left$(sData, Len("ANS_TIME_POSITION")) = "ANS_TIME_POSITION" Then
+     
+   Endif
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
    
    
 
@@ -118,7 +160,11 @@ Public Sub togglePlayPause()
  
 End 
  
+<<<<<<< HEAD
 Private Sub buffer(Optional mTime As Float)
+=======
+Public Sub buffer(Optional mTime As Float)
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
   Print "buffering"
   
   If Not mTime Then mTime = 0.1

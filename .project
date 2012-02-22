@@ -2,11 +2,19 @@
 # Compiled with Gambas 3.0.0
 Title=Araukola Jukebox
 Startup=FMain
+<<<<<<< HEAD
 Version=0.0.2
+=======
+Version=0.0.1
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 Component=gb.image
 Component=gb.gui
 Component=gb.form
 Component=gb.db
 Component=gb.db.form
+<<<<<<< HEAD
 TabSize=4
 ExecPath=/home/jcampos/Escritorio/Araukola.gambas
+=======
+TabSize=2
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6

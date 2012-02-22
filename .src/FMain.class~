@@ -1,5 +1,6 @@
 ' Gambas class file
 
+<<<<<<< HEAD
 Private formCancion As ReproducirForm
 
 Private cancion As Song
@@ -18,17 +19,38 @@ Public Sub Button1_Click()
   cancion = New Song("/home/jcampos/Música/R&B/112/112/13 I Will Be There.mp3")
   cancion.play
   
+=======
+Private cancion As New Song("/home/camilo/1.mp3")
+
+
+Public Sub Button1_Click()
+
+  cancion.play
+
+  tiempoCancion.Enabled = True
+  updateDatos
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 End
 
 Public Sub Button2_Click()
 
+<<<<<<< HEAD
   If cancion Then cancion.Stop
   If cancion Then cancion.Kill
+=======
+  If cancion Then
+  cancion.Stop
+  progreso.Value = 0
+  tiempoCancion.Enabled = False
+  duracion.Text = ""
+  Endif
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 End
 
 Public Sub Form_Close()
 
   If cancion Then cancion.Stop
+<<<<<<< HEAD
 
 End
 
@@ -92,3 +114,36 @@ Public Sub Timer1_Timer()
    ' Cargar siguiente cancion del playlist
   Endif
 End
+=======
+  If cancion Then cancion.Kill
+End
+
+Public Sub updateDatos()
+   Wait 0.5 ' Buffer
+   duracion.Text = cancion.length
+   
+  
+End
+
+Public Sub tiempoCancion_Timer()
+  If cancion Then 
+    cancion.getPercentage
+    progreso.Value = (cancion.progress / 100) + 0.01
+     Wait 0.1
+    cancion.getTime
+    tiempoRestante.text = Format$(Floor(cancion.time + 1) / 60, gb.Fixed)
+    
+  Endif
+  
+ If (progreso.Value * 100) = 100 Then
+   ' Cargar siguiente cancion del playlist
+ Endif
+
+End
+
+Public Sub Form_Open()
+
+  Me.Center
+
+End
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6

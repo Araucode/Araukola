@@ -1,5 +1,6 @@
 ' Gambas class file
 
+<<<<<<< HEAD
 Private formCancion As ReproducirForm
 
 Private cancion As Song
@@ -82,10 +83,45 @@ Public Sub userInput_getCodigo(cod As Integer)
     
   Message.Info("el usuario ha escogido: " & cod)  
     
+=======
+Private cancion As New Song("/home/camilo/1.mp3")
+
+
+Public Sub Button1_Click()
+
+  cancion.play
+
+  tiempoCancion.Enabled = True
+  updateDatos
+End
+
+Public Sub Button2_Click()
+
+  If cancion Then
+  cancion.Stop
+  progreso.Value = 0
+  tiempoCancion.Enabled = False
+  duracion.Text = ""
+  Endif
+End
+
+Public Sub Form_Close()
+
+  If cancion Then cancion.Stop
+  If cancion Then cancion.Kill
+End
+
+Public Sub updateDatos()
+   Wait 0.5 ' Buffer
+   duracion.Text = cancion.length
+   
+  
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
 End
 
 Public Sub tiempoCancion_Timer()
   If cancion Then 
+<<<<<<< HEAD
     cancion.getPosition
     progreso.Value = (cancion.progress / 100) + 0.01
   Endif 
@@ -93,3 +129,30 @@ Public Sub tiempoCancion_Timer()
    ' Cargar siguiente cancion del playlist
   Endif
 End
+=======
+    cancion.getPercentage
+    progreso.Value = (cancion.progress / 100) + 0.01
+     Wait 0.1
+    cancion.getTime
+    tiempoRestante.text = Format$(Floor(cancion.time + 1) / 60, gb.Fixed)
+    
+  Endif
+  
+ If (progreso.Value * 100) = 100 Then
+   ' Cargar siguiente cancion del playlist
+ Endif
+
+End
+
+Public Sub Form_Open()
+
+  Me.Center
+
+End
+
+Public Sub Button3_Click()
+
+  Me.Close
+
+End
+>>>>>>> 479a8490ae2becd2f9b333c96e2383d2d84b0ae6
