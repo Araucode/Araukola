@@ -1,0 +1,57 @@
+' Gambas class file
+
+Private cancion As New Song("/home/camilo/1.mp3")
+
+
+Public Sub Button1_Click()
+
+  cancion.play
+
+  tiempoCancion.Enabled = True
+  updateDatos
+End
+
+Public Sub Button2_Click()
+
+  If cancion Then
+  cancion.Stop
+  progreso.Value = 0
+  tiempoCancion.Enabled = False
+  duracion.Text = ""
+  Endif
+End
+
+Public Sub Form_Close()
+
+  If cancion Then cancion.Stop
+  If cancion Then cancion.Kill
+End
+
+Public Sub updateDatos()
+   Wait 0.5 ' Buffer
+   duracion.Text = cancion.length
+   
+  
+End
+
+Public Sub tiempoCancion_Timer()
+  If cancion Then 
+    cancion.getPercentage
+    progreso.Value = (cancion.progress / 100) + 0.01
+     Wait 0.1
+    cancion.getTime
+    tiempoRestante.text = Format$(Floor(cancion.time + 1) / 60, gb.Fixed)
+    
+  Endif
+  
+ If (progreso.Value * 100) = 100 Then
+   ' Cargar siguiente cancion del playlist
+ Endif
+
+End
+
+Public Sub Form_Open()
+
+  Me.Center
+
+End

@@ -1,0 +1,66 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,114.2857,85.7143)
+  FullScreen = True
+  { cover PictureBox
+    MoveScaled(3,6,28.5714,28.5714)
+    AutoResize = True
+    Border = Border.Etched
+  }
+  { Button1 Button
+    MoveScaled(20,47,16,4)
+    Picture = Picture["icon:/32/play"]
+  }
+  { Button2 Button
+    MoveScaled(40,40,16,4)
+    Picture = Picture["icon:/32/pause"]
+  }
+  { tiempoCancion #Timer
+    #MoveScaled(4,13)
+  }
+  { progreso ProgressBar
+    MoveScaled(3,1,29,4)
+    Expand = True
+    Label = False
+  }
+  { Button3 Button
+    MoveScaled(22,39,16,6)
+    Picture = Picture["icon:/32/delete"]
+  }
+  { playlist ListBox
+    MoveScaled(3,56,43,28)
+    Font = Font["Bold,+2"]
+    Border = False
+    Mode = Select.None
+  }
+  { duracion Label
+    MoveScaled(30,31,17,4)
+    Font = Font["Bold,+2"]
+  }
+  { tiempoRestante Label
+    MoveScaled(4,31,22,4)
+    Font = Font["Bold,+2"]
+  }
+  { separador Label
+    MoveScaled(27,31,3,4)
+    Font = Font["Bold,+5"]
+    Text = ("/")
+  }
+  { canciones ListBox
+    MoveScaled(62,9,51,45)
+    Font = Font["Bold,+2"]
+    Border = False
+  }
+  { codigo TextBox
+    MoveScaled(62,1,51,7)
+    Font = Font["Bold,+2"]
+    Foreground = &HFF7F00&
+    Alignment = Align.Right
+    Border = False
+  }
+  { ListBox1 ListBox
+    MoveScaled(62,56,51,27)
+    Border = False
+  }
+}

@@ -1,0 +1,307 @@
+' Gambas class file
+
+ 
+' Gambas class file 
+ 
+'  * A Simple mplayer wrapper class 
+'  * Camilo Castro <clsource> 2012 
+'  * see http://www.mplayerhq.hu/DOCS/tech/slave.txt For more info 
+'  
+'  * This program Is Free software.It comes without any warranty, To 
+'  * the extent permitted by applicable law.You can redistribute it 
+'  * And / Or modify it under the terms Of the Do What The Fuck You Want 
+'  * To Public License, Version 2, As Published by Sam Hocevar.See 
+'  * http://sam.zoy.org/wtfpl/COPYING For more details. 
+
+Event updatedProgress(_output As String)
+Event foundFileLength(_output As String)
+Event foundTime(_output As String)
+
+' If you remove static, you will get a lot of instances of mplayer  
+Static Private mplayer As Process 
+
+' TODO : Use the rigth data type for each variable 
+Public file_name As String
+Private file_length As String
+Private file_percentage As String
+Private file_time_position As String
+Private counter As Integer
+Private sData As String 
+ 
+Public Sub _new() 
+    ' Lazy instantiation? 
+   If Not mplayer Then mplayer = Exec ["mplayer", "-slave", "-idle", "-quiet", "-identify"] For Read Write As "mpProcess" 
+ 
+End 
+ 
+' Process Methods 
+Public Sub mpProcess_read() 
+ 
+  
+ 
+    sData = Read #Last, -250 
+ 
+    sData = Trim$(sData)
+    
+   
+   ' Print counter
+   ' Print sData
+    
+  ' Inc counter
+
+    ' We delegate the output parsing to a listener 
+
+    
+    ' Example Output
+   ' ANS_FILENAME = '1.mp3'
+  ' 
+  ' ANS_LENGTH = 190.00
+  ' 
+  ' ANS_PERCENT_POSITION = 0
+  ' 
+  ' ANS_META_ALBUM = ''
+  ' 
+  ' ANS_META_ARTIST = ''
+  ' 
+  ' ANS_META_COMMENT = ''
+  ' 
+  ' ANS_META_GENRE = ''
+  ' 
+  ' ANS_META_TITLE = ''
+  ' 
+  ' ANS_META_TRACK = ''
+  ' 
+  ' ANS_volume = 100.000000
+  ' 
+  ' ANS_TIME_POSITION = 0.0
+   ' 
+   ' ' If we receive a filename command, lets save the value
+   ' If Comp(Left$(sData, Len("ID_FILENAME")), "ID_FILENAME") = 0 Then
+   '   ' Exclude = and ' '
+   '   file_name = Replace$(Mid$(sData, 14), "'", "")
+   '   Print file_name
+   ' Endif
+   ' 
+   ' 
+   
+   'Print Left$(sData, Len("ID_LENGTH"))
+   'Print Left$(sData, Len("ANS_PERCENT_POSITION"))
+   ' 
+   ' 
+   If Left$(sData, Len("ANS_LENGTH")) = "ANS_LENGTH" Then
+     file_length = Mid$(sData, Len("ANS_LENGTH") + 2)
+     Raise foundFileLength(file_length) 
+   Endif
+   
+   If Left$(sData, Len("ANS_PERCENT_POSITION")) = "ANS_PERCENT_POSITION" Then
+     file_percentage = Mid$(sData, Len("ANS_PERCENT_POSITION") + 2)
+     Raise updatedProgress(file_percentage)
+   Endif
+   
+   If Left$(sData, Len("ANS_TIME_POSITION")) = "ANS_TIME_POSITION" Then
+     file_time_position = Mid$(sData, Len("ANS_TIME_POSITION") + 2)
+     Raise foundTime(file_time_position)
+   Endif
+   
+   
+
+ 
+End 
+ 
+ 
+Public Sub mpProcess_kill() 
+ 
+    mplayer = Null 
+ 
+End 
+ 
+' Useful procedures 
+Public Sub kill() 
+ 
+    mplayer.kill 
+ 
+End 
+ 
+Public Sub togglePlayPause() 
+ 
+    If Not mplayer Then Return 
+ 
+    Print #mplayer, "pause" 
+    
+ 
+End 
+ 
+Public Sub buffer(Optional mTime As Float)
+  Print "buffering"
+  
+  If Not mTime Then mTime = 0.1
+  Wait mTime
+  
+End
+
+Public Sub stop() 
+ 
+    If Not mplayer Then Return 
+    Print #mplayer, "stop" 
+    ' mplayer.Kill 
+ 
+End 
+ 
+Public Sub play(filePath As String) 
+ 
+    'Print filePath 
+ 
+    If Not mplayer Then Return 
+ 
+    'Print mplayer.Id 
+    filePath = Quote$(Conv(filePath, Desktop.Charset, System.Charset)) 
+    
+    ' Pause the current playing file, then load the new one 
+    'Print #mplayer, "pausing_keep_force pt_step 1" 
+    Print #mplayer, "loadfile " & filePath
+    
+    ' Pause the song
+    
+    'togglePlayPause
+    'buffer(1)
+    
+    ' Update all metadata
+    ' fileName
+    ' buffer
+    ' 
+    ' length
+    ' buffer
+    ' 
+    ' percentage
+    ' buffer
+    ' 
+    ' metaAlbum
+    ' buffer
+    ' 
+    ' metaArtist
+    ' buffer
+    ' 
+    ' metaComment
+    ' buffer
+    ' 
+    ' metaGenre
+    ' buffer
+    ' 
+    ' metaTitle
+    ' buffer
+    ' 
+    ' metaTrack
+    ' buffer
+    ' 
+    ' volume
+    ' buffer
+    ' 
+    ' Me.Time
+    ' buffer
+    
+    ' Start playing the song
+    'togglePlayPause
+ 
+End 
+ 
+Public Sub setVolume(value As Float) 
+  ' Some checks  
+  ' Mplayer already does the checking
+  ' If value <= 0 Then value = 0 
+  ' If value >= 100 Then value = 100 
+      
+  If Not mplayer Then Return 
+  Print #mplayer, "volume " & value  
+     
+End 
+ 
+' Useful info 
+Public Sub volume() 
+     
+  If Not mplayer Then Return 
+  Print #mplayer, "get_property volume"   
+     
+End 
+ 
+Public Sub fileName() 
+     
+    If Not mplayer Then Return 
+    Print #mplayer, "get_file_name"   
+
+End 
+ 
+Public Sub metaAlbum() 
+     
+    If Not mplayer Then Return 
+    Print #mplayer, "get_meta_album"   
+
+     
+End 
+ 
+Public Sub metaArtist() 
+     
+  If Not mplayer Then Return 
+  Print #mplayer, "get_meta_artist"   
+
+End 
+ 
+Public Sub metaGenre() 
+     
+  If Not mplayer Then Return 
+   
+  Print #mplayer, "get_meta_genre"   
+
+End 
+ 
+Public Sub metaComment() 
+     
+  If Not mplayer Then Return 
+   
+  Print #mplayer, "get_meta_comment"   
+
+End 
+ 
+Public Sub metaTitle() 
+     
+  If Not mplayer Then Return 
+   
+  Print #mplayer, "get_meta_title"   
+
+End 
+ 
+Public Sub metaTrack() 
+     
+  If Not mplayer Then Return 
+   
+  Print #mplayer, "get_meta_track"   
+
+End 
+ 
+Public Sub metaYear() 
+     
+  If Not mplayer Then Return 
+   
+  Print #mplayer, "get_meta_year"   
+       
+End 
+ 
+Public Sub percentage() 
+ 
+    If Not mplayer Then Return 
+    Print #mplayer, "get_percent_pos" 
+ 
+End 
+ 
+Public Sub length() 
+     
+    If Not mplayer Then Return 
+    Print #mplayer, "get_time_length" 
+     
+End 
+ 
+Public Sub time() 
+     
+    If Not mplayer Then Return 
+    Print #mplayer, "get_time_pos"   
+     
+End

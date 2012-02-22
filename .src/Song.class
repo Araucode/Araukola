@@ -1,0 +1,76 @@
+' Gambas class file
+
+Private myplayer As Mplayer
+Public file As String
+Public progress As Integer
+Public length As String
+Public time As Float
+
+Public Sub _new(Optional _file As String)
+  myplayer = New Mplayer As "player"
+  
+  If _file Then file = _file
+  
+End
+
+
+Public Sub player_updatedProgress(data As String)
+  
+  progress = Val(data)
+End
+
+Public Sub player_foundFileLength(data As String)
+  length = Format$(CFloat(data) / 60, gb.Fixed)
+End
+
+Public Sub player_foundTime(data As String)
+  
+  Me.time = CFloat(data)
+  
+End
+
+
+
+Public Sub changeFile(_file As String)
+  
+  file = _file
+  
+End
+
+Public Sub play()
+  Me.Stop
+  myplayer.play(file)
+  getData
+End
+
+Public Sub Stop()
+  
+  myplayer.stop
+  progress = 0
+End
+
+Public Sub Kill()
+  myplayer.kill
+End
+
+Public Sub getData()
+  myplayer.buffer
+  myplayer.length
+  myplayer.buffer
+  
+End
+
+
+Public Sub getPercentage()
+  
+  myplayer.percentage
+  
+End
+
+Public Sub getTime()
+  
+  myplayer.time
+  
+End
+
+
