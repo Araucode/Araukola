@@ -1,0 +1,15 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,427,98)
+  #Scaled = False
+  Picture = Picture["img/widget-cancion.png"]
+  Mask = True
+  Resizable = False
+  Border = False
+  { txtCancion TextBox
+    Move(7,42,385,42)
+    Font = Font["DejaVu Serif,Bold,15"]
+    Alignment = Align.Center
+  }
+}

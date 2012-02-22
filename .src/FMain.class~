@@ -1,0 +1,94 @@
+' Gambas class file
+
+Private formCancion As ReproducirForm
+
+Private cancion As Song
+Public Sub _new()
+
+End
+
+Public Sub Form_Open()
+    Me.Center() 
+    formCancion = New ReproducirForm
+End
+
+Public Sub Button1_Click()
+
+ 
+  cancion = New Song("/home/jcampos/Música/R&B/112/112/13 I Will Be There.mp3")
+  cancion.play
+  
+End
+
+Public Sub Button2_Click()
+
+  If cancion Then cancion.Stop
+  If cancion Then cancion.Kill
+End
+
+Public Sub Form_Close()
+
+  If cancion Then cancion.Stop
+
+End
+
+Public Sub ToggleButton1_Click()
+    formCancion.Close()
+    Me.Close()
+
+End
+
+Public Sub form_KeyPress()
+    'solo funciona para el numpad
+    lblDebug.text = "pressed key = " & Key.Code
+    Select Key.Code
+      'no cambian  
+      Case 65407 'bloq mayus
+      Case 65451 '+
+      Case 65421 'enter    
+      Case 65450 '* 
+      Case 65453 '-  
+      'con bloq num DESACTIVADO  
+      Case 65438 '0 -> insert
+      Case 65436 '1 -> fin 
+      Case 65433 '2 -> flecha abajo
+      Case 65435 '3 -> avPag
+      Case 65430 '4 -> flecha izquierda
+      Case 65437 '5 -> marca (no se...)
+          formCancion.Show()
+      Case 65432 '6 -> flecha derecha
+      Case 65429 '7 -> inicio
+      Case 65431 '8 -> flecha arriba
+      Case 65434 '9 -> rePag
+      Case 65439 '. -> suprimir
+      'con bloq num ACTIVADO    
+      Case 65456 '0
+      Case 65457 '1
+      Case 65458 '2
+      Case 65459 '3
+      Case 65460 '4
+      Case 65461 '5  
+          formCancion.Show()  
+      Case 65462 '6  
+      Case 65463 '7
+      Case 65464 '8
+      Case 65465 '9
+      Case 65454 '.
+    End Select
+End
+
+Public Sub userInput_getCodigo(cod As Integer)
+    
+  Message.Info("el usuario ha escogido: " & cod)  
+    
+End
+
+Public Sub Timer1_Timer()
+  If cancion Then 
+    cancion.getPosition
+    progreso.Value = (cancion.progress / 100) + 0.01
+  Endif 
+  If (progreso.Value * 100) = 100 Then
+   ' Cargar siguiente cancion del playlist
+  Endif
+End

@@ -1,0 +1,33 @@
+' Gambas class file
+
+Event getCodigo(cod As Integer)
+
+Public Sub Form_Open()
+    Me.Center()
+    Me.SetFocus()
+End
+
+Public Sub form_Show()
+    
+  Me.Show()
+  txtCancion.Text = ""  
+    
+End
+
+
+Public Sub form_KeyPress()
+  Select Key.Code
+    Case 65421 'enter
+        getCancion()  
+  End Select  
+    
+End
+
+Public Sub getCancion()
+    Dim cancion As Integer
+    cancion = CInteger(txtCancion.Text)
+    Raise getCodigo(cancion)
+    Me.Hide()
+    Catch
+      Message.Error(Error.Text)  
+End

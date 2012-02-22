@@ -1,0 +1,74 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,146.2857,109.7143)
+  FullScreen = True
+  { btnPlay Button
+    MoveScaled(2,1,16,4)
+    Text = ("play")
+    Picture = Picture["icon:/32/play"]
+  }
+  { btnStop Button
+    MoveScaled(21,1,16,4)
+    Text = ("stop")
+    Picture = Picture["icon:/32/stop"]
+  }
+  { ToggleButton1 ToggleButton
+    MoveScaled(40,1,15,4)
+    Text = ("salir")
+    Picture = Picture["icon:/32/close"]
+  }
+  { Panel1 Panel
+    MoveScaled(2,6,143,74)
+    Background = Color.Foreground
+    { lblDebug TextLabel
+      MoveScaled(1,1,41,8)
+      Font = Font["Bold"]
+      Foreground = Color.SelectedForeground
+      Text = ("waiting for keyboard input ")
+    }
+  }
+  { Panel2 Panel
+    MoveScaled(2,85,50,22.8571)
+    Background = &H7F7F7F&
+  }
+  { Panel3 Panel
+    MoveScaled(55,85,90,22.8571)
+    Background = &H7F2F2F&
+    { PictureBox1 PictureBox
+      MoveScaled(1,1,20,20)
+      Picture = Picture["img/cd.png"]
+      Border = Border.Etched
+    }
+    { lblCancion Label
+      MoveScaled(23,1,65,5)
+      Font = Font["Trebuchet MS,+7"]
+      Foreground = Color.SelectedForeground
+      Text = ("titulo de la cancion")
+    }
+    { lblAlbum Label
+      MoveScaled(23,5,38,4)
+      Font = Font["Verdana,Italic,+2"]
+      Foreground = Color.ButtonBackground
+      Text = ("Album")
+    }
+    { lblArtista Label
+      MoveScaled(23,9,66,4)
+      Font = Font["Ubuntu,+4"]
+      Foreground = &HDFA7B5&
+      Text = ("Artista / Autor")
+    }
+    { lblTiempo Label
+      MoveScaled(22,15,11,6)
+      Font = Font["OpenSymbol,Bold,+5"]
+      Foreground = Color.SelectedForeground
+      Text = ("3:50")
+    }
+    { progreso ProgressBar
+      MoveScaled(33,15,50,4)
+    }
+    { tiempoCancion #Timer
+      #MoveScaled(82,2)
+    }
+  }
+}
